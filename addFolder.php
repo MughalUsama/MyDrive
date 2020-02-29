@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+if (isset($_SESSION["useremail"])==false) {
+	header("Location:index.php");
+}
 $useremail = $_SESSION["useremail"];
 
 

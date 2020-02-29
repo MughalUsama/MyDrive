@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css?family=Krona+One|Montserrat&display=swap');
+
+
+#nav-login, #nav-signup{
+    cursor: pointer !important;
+}
+span > a{
+    color: gold !important;
+    cursor: pointer;
+}
+a:hover{
+    text-decoration: underline !important;
+}
+.wid{
+    width: 35%;
+}
+.card{
+    cursor: pointer !important;
+}
+.borderDiv{
+    border-color: white;
+    border-radius: 5px;
+}
+.selectedDiv{
+    border-color: blue;
+    border-width: 3px;
+}
+
+.card-font{
+    font-family: "Montserrat";
+}
+@media only screen and (max-width: 767px) {
+    .card{
+        margin-left: 0%;
+    }
+}
+
+body{
+    overflow-x: hidden;
+}
+body{
+    background-image: url("bg1.jpg");
+    background-size: cover;
+}
+
+label{
+    font-weight: bold;
+    font-size: 120%;
+}
+
+form{
+    font-family: Montserrat;
+}
+.card{
+    font-family: Georgia;
+}
+
+#logo-txt{
+
+    font-family: 'Krona One' ;
+}
+li{
+    font-family: 'Montserrat';
+    font-weight: bold;
+}
+
+li:hover{
+    transform: scale(0.95);
+}
+a{
+    color: #FFFFFF !important;
+}
+
+a:hover{
+    color: #FFFFFF;
+}
+
+
+.folder-structure{
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
+    background-color: #20272d;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.new-button{
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.card{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #20272d;
+}
+
+#newFolder{
+    font-size: 110%;
+}
+
+#addnew{
+        background-color: brown !important;
+        color: white !important;
+}
+
+.plussign{
+    font-size: 120% !important;
+}
+
+.modal-content{
+    font-family: Georgia;
+    font-size: 120%;
+}

@@ -7,11 +7,8 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="icon" href="card-folder.png"/>
 
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="bootstrap.min.css">
-    <!-- jQuery library -->
     <script src="jquery-3.4.1.min.js"></script>
-    <!-- Latest compiled JavaScript -->
     <script src="bootstrap.min.js"></script>
     <link rel='stylesheet' type='text/css' media='screen' href='home.css'>
 
@@ -37,13 +34,11 @@
 <div class="row">
     <nav class="navbar p-0 pr-3 navbar-expand-md bg-dark navbar-dark shadow-sm col-12">
         <a href="home.php" class="navbar-brand">
-            <!-- Logo Image -->
             <img src="brandIcon.png" width="75" alt="" class="d-inline-block align-middle mr-1 ml-4">
-            <!-- Logo Text -->
             <span class="text-uppercase font-weight-bold" id="logo-txt">My Drive</span>
         </a>
         <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
-        <div id="navbarSupportedContent" class="collapse navbar-collapse">
+        <div id="navbarSupportedContent" class="text-center collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item mt-1 active"><a href="#" class="nav-link"><?php echo $_SESSION["username"]; ?></a></li>
                 <li class="nav-item mt-1"><a href="#" class="nav-link">Settings</a></li>
@@ -67,7 +62,7 @@
     </div>
 
     <div class="row d-flex flex-sm-wrap mt-2">
-        <button data-toggle="modal" data-target="#myModal" id="addnew" class="addnew btn py-2 ml-auto mr-1">Add New Folder<span class="font-weight-bold plussign"> +</span> </button>
+        <button data-toggle="modal" data-target="#myModal" id="addnew" class="addnew btn py-2 ml-auto mr-3 mb-2">Add New Folder<span class="font-weight-bold plussign"> +</span> </button>
     </div>
     <div class="row d-flex flex-sm-wrap mt-2">
         

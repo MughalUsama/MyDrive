@@ -13,6 +13,7 @@ a:hover{
 }
 .wid{
     width: 35%;
+    min-width: 60px!important;
 }
 .card{
     cursor: pointer !important;

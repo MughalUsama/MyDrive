@@ -1,0 +1,52 @@
+$(document).ready(function() {
+   $('#nav-signup').click(function () {
+            $('#nav-signup').fadeOut('fast',function () {
+                $('#nav-login').fadeIn();
+            });
+
+           $('#loginform').fadeOut('fast',function () {
+               $('#signupform').fadeIn();
+           });
+           $('#signedupmsg').hide();
+      }
+   );
+    $('#nav-login').click(function () {
+        $('#nav-login').fadeOut('fast',function () {
+            $('#nav-signup').fadeIn();
+        });
+        $('#signupform').fadeOut('fast',function () {
+                $('#loginform').fadeIn();
+            });
+        $('#pass-error').hide();
+        $('#email-error').hide();
+
+        }
+    );
+
+
+    if ($('#pass-error').css('display')!='none' || $('#email-error').length>0 )
+    {
+        $('#nav-signup').hide();
+        $('#nav-login').show();
+
+        $('#loginform').hide();
+        $('#signupform').show();
+    }
+
+    $('#signupform').on('submit',function()
+    {
+      var spass=$('#signupPassword').val();
+      var sconpass=$('#confirmPassword').val();
+
+      if (spass==sconpass) {
+        return true;
+      }
+      else{
+        $('#pass-error').show();
+        return false;
+      }
+    }
+
+    );
+  }
+);

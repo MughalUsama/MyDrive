@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css?family=Krona+One|Montserrat&display=swap');
+
+
+#nav-login, #nav-signup{
+    cursor: pointer !important;
+}
+
+#signupform, #nav-login{
+    display: none;
+}
+#pass-error{
+    display: none;
+}
+@media only screen and (max-width: 767px) {
+    .myform{
+        margin-left: 13%;
+    }
+    .card{
+        margin-left: 0%;
+    }
+}
+@media only screen and (min-width: 900px) {
+    body{
+        overflow-y: hidden;
+    }
+}
+@media only screen and (max-width: 558px) {
+    .myform{
+        margin-left: 12%;
+    }
+    .card{
+        margin-left: -8%;
+    }
+}
+body{
+    overflow-x: hidden;
+}
+body{
+    background-image: url("penbg.jpg");
+    background-size: cover;
+}
+.lm{
+    background-color: #3c4c55;
+}
+label{
+    font-weight: bold;
+    font-size: 120%;
+}
+
+form{
+    font-family: Montserrat;
+}
+.card{
+    font-family: Georgia;
+}
+
+.myform{
+    color: #FFFFFF;
+    background-color: #20272d;
+}
+
+#logo-txt{
+
+    font-family: 'Krona One' ;
+}
+li{
+    font-family: 'Montserrat';
+    font-weight: bold;
+}
+
+li:hover{
+    transform: scale(0.95);
+}
+a{
+    color: #FFFFFF !important;
+}
+
+a:hover{
+    color: #FFFFFF;
+}
+

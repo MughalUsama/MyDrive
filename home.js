@@ -8,8 +8,8 @@ $(document).ready(function(){
 					data: {folder:folderid},
 					success: displayFolders
 				}
-			)
-	}
+			);
+	};
 	var colorindex=	Math.floor(Math.random() * 4);     // returns a random integer from 0 to 3
 	var currentpfid = null;
 	pageLoad(null);
@@ -44,16 +44,16 @@ $(document).ready(function(){
 					data: {fname:name,pfid:currentpfid},
 					success: displayFolders
 				}
-			)
+			);
 		}
 		else {
 			alert("Folder Name Cannot Be Empty");
 		}
-	})
+	});
 	$("body").on('click','.card',function () {
 		$('.card').not(this).removeClass('selectedDiv');
 		$(this).toggleClass('selectedDiv');
-	})
+	});
 
 	$("body").on('dblclick','.card',function () {
 		currentpfid = $(this).attr('fid');
@@ -61,13 +61,13 @@ $(document).ready(function(){
 		var folname = $(this).text();
 		$('#modalPfolder').text(folname);
 		$('.folder-structure').append("<span class='folderlinks'>&ensp;<a  fid='"+currentpfid+"'>/"+folname+"</a> </span>");
-	})
+	});
 
 	$("body").on('click','.folderlinks',function () {
 		currentpfid=$(this).find('a').attr('fid');
 		$(this).nextAll().remove();
 		pageLoad(currentpfid);
-	})
+	});
 
   }
 );

@@ -142,5 +142,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Entity\Entity.csproj">
+      <Project>{ba11cb10-1a49-45f1-87f7-c8029036a2c6}</Project>
+      <Name>Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UMS.BAL\UMS.BAL.csproj">
+      <Project>{aca0759f-7794-4c32-a7c9-d449bbe8b1d5}</Project>
+      <Name>UMS.BAL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

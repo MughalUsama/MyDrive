@@ -14,8 +14,10 @@ namespace UserManagementSystem
 {
     public partial class LoginForm : Form
     {
+        Entity.UserDTO user;
         public LoginForm()
         {
+            user = new Entity.UserDTO();
             InitializeComponent();
         }
 
@@ -32,20 +34,42 @@ namespace UserManagementSystem
 
         private void ResetBtn_Click(object sender, EventArgs e)
         {
-            ResetCodeForm resetCodeForm = new ResetCodeForm();
-            resetCodeForm.ShowDialog();
+
+            if(UMS.BAL.UserBO.emailExists(textBox3.Text))
+            {
+                string code = null;
+                UMS.BAL.UserBO.resetEmail(textBox3.Text, out code);
+                ResetCodeForm resetCodeForm = new ResetCodeForm(code, textBox3.Text);
+                resetCodeForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Enter Valid Email");
+            }
         }
 
         private void LoginBtn_Click(object sender, EventArgs e)
         {
-            if(UserBO.userExists(textBox1.Text))
+            if(loginBox.Text.Length==0 || passBox.Text.Length==0)
             {
-                MessageBox.Show("User Exists");
+                MessageBox.Show("Please Fill All Fields");
+                loginBox.Focus();
             }
             else
             {
-                MessageBox.Show("User Dont Exists");
+                if (UMS.BAL.UserBO.validateUser(loginBox.Text, passBox.Text,user))
+                {
+                    this.Hide();
+                    HomeForm homeForm = new HomeForm(user);
+                    homeForm.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Wrong Credentials");
+                }
             }
         }
+
+        
     }
 }

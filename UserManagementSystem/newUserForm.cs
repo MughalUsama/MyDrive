@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UMS.BAL;
 using Entity;
+using System.IO;
 
 namespace UserManagementSystem
 {
@@ -37,10 +38,9 @@ namespace UserManagementSystem
             this.cricketCheckBox.Checked = (userDTO.IsCricket == 1);
             this.hockeyCheckBox.Checked = (userDTO.Hockey == 1);
             this.chessCheckBox.Checked = (userDTO.Chess == 1);
-            this.userPictureBox.Load(userDTO.ImageName);
-
-
-
+            String imageFolderPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            imageFolderPath += @"\images\" + userDTO.Login + @"\"+userDTO.ImageName;
+            this.userPictureBox.Load(imageFolderPath);
         }
         int errorCount = 0;
         private void UploadBtn_Click(object sender, EventArgs e)
@@ -50,6 +50,7 @@ namespace UserManagementSystem
             {
                 string filename = openFileDialog1.FileName;
                 userPictureBox.Load(filename);
+                
                 if (errorProvider8.GetError(this.userPictureBox) != "")
                 {
                     errorCount--;
@@ -70,7 +71,6 @@ namespace UserManagementSystem
             {
                 Application.OpenForms["MainScreen"].Show();
             }
-
         }
        
         private void CreateBtn_Click(object sender, EventArgs e)
@@ -88,10 +88,9 @@ namespace UserManagementSystem
             AddressTxtBox_Leave(sender, e);
             GenderBox_Leave(sender, e);
 
-
             if (errorCount>0)
             {
-                MessageBox.Show("Please fill all fields" + errorCount);
+                MessageBox.Show("Please fill all fields correctly");
             }
             else
             {
@@ -130,14 +129,46 @@ namespace UserManagementSystem
                     userDTO.IsCricket = 0;
                 }
                 userDTO.IsActive = 1;
-                userDTO.ImageName = userPictureBox.ImageLocation;
+                string imageName = userPictureBox.ImageLocation.ToString();
+                imageName = imageName.Substring(imageName.LastIndexOf("\\"));
+                imageName = imageName.Remove(0, 1);
+                String imageFolderPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+                imageFolderPath += @"\images\" + userDTO.Login + @"\";
+                System.IO.Directory.CreateDirectory(imageFolderPath);
+                imageFolderPath += imageName;
+                if (!File.Exists(imageFolderPath))
+                {
+                    userPictureBox.Image.Save(imageFolderPath);
+                }
+                userDTO.ImageName = imageName;
                 if (!isLoggedIn)
                 {
-                    UMS.BAL.UserBO.addUser(userDTO);
+                    if (UMS.BAL.UserBO.addUser(userDTO))
+                    {
+                        this.Hide();
+                        HomeForm homeForm = new HomeForm(userDTO);
+                        homeForm.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sign Up Failed");
+                    }
                 }
-                this.Hide();
-                HomeForm homeForm = new HomeForm(userDTO);
-                homeForm.Show();
+                else
+                {
+                    if(UMS.BAL.UserBO.updateUser(userDTO))
+                    {
+                        MessageBox.Show("Updated Successfully");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Updated Failed");
+                    }
+                    this.Hide();
+                    HomeForm homeForm = new HomeForm(userDTO);
+                    homeForm.Show();
+                }
+                   
             }
         }
 
@@ -185,11 +216,19 @@ namespace UserManagementSystem
                     errorCount++;
                 }
             }
-            else if (UserBO.userExists(loginTxtBox.Text))
+            else if (UserBO.userExists(loginTxtBox.Text) && !isLoggedIn)
             {
                 if (errorProvider2.GetError(this.loginTxtBox) == "")
                 {
-                    errorProvider2.SetError(this.loginTxtBox, "Login Already in Use");
+                    errorProvider2.SetError(this.loginTxtBox, "Login Already in Use1");
+                    errorCount++;
+                }
+            }
+            else if (UserBO.userExists(loginTxtBox.Text) && isLoggedIn && loginTxtBox.Text.ToUpper() != userDTO.Login.ToUpper())
+            {
+                if (errorProvider2.GetError(this.loginTxtBox) == "")
+                {
+                    errorProvider2.SetError(this.loginTxtBox, "Login Already in Use2");
                     errorCount++;
                 }
             }
@@ -231,7 +270,23 @@ namespace UserManagementSystem
             {
                 if (errorProvider4.GetError(this.emailTxtBox) == "")
                 {
-                    errorProvider4.SetError(this.emailTxtBox, "Password must be 8 characters long");
+                    errorProvider4.SetError(this.emailTxtBox, "ENTER VALID EMAIL");
+                    errorCount++;
+                }
+            }
+            else if((UserBO.emailExists(emailTxtBox.Text) && !isLoggedIn))
+            {
+                if (errorProvider4.GetError(this.emailTxtBox) == "")
+                {
+                    errorProvider4.SetError(this.emailTxtBox, "Email already in use");
+                    errorCount++;
+                }
+            }
+            else if (UserBO.emailExists(emailTxtBox.Text) && isLoggedIn &&emailTxtBox.Text.ToUpper()!=userDTO.Email.ToUpper())
+            {
+                if (errorProvider4.GetError(this.emailTxtBox) == "")
+                {
+                    errorProvider4.SetError(this.emailTxtBox, "Email already in use");
                     errorCount++;
                 }
             }
@@ -303,6 +358,12 @@ namespace UserManagementSystem
                     errorCount--;
                 }
             }
+        }
+
+        private void NewUserForm_Load(object sender, EventArgs e)
+        {
+            String imageFolderPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            System.IO.Directory.CreateDirectory(imageFolderPath + @"\images\");
         }
     }
 }

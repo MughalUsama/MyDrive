@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.loginBox = new System.Windows.Forms.TextBox();
+            this.passBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.loginBtn = new System.Windows.Forms.Button();
@@ -40,20 +40,20 @@
             this.resetBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // loginBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(295, 44);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(175, 20);
-            this.textBox1.TabIndex = 0;
+            this.loginBox.Location = new System.Drawing.Point(295, 44);
+            this.loginBox.Name = "loginBox";
+            this.loginBox.Size = new System.Drawing.Size(175, 20);
+            this.loginBox.TabIndex = 0;
             // 
-            // textBox2
+            // passBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(295, 96);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(175, 20);
-            this.textBox2.TabIndex = 1;
+            this.passBox.Location = new System.Drawing.Point(295, 96);
+            this.passBox.Name = "passBox";
+            this.passBox.PasswordChar = '*';
+            this.passBox.Size = new System.Drawing.Size(175, 20);
+            this.passBox.TabIndex = 1;
             // 
             // label1
             // 
@@ -75,12 +75,13 @@
             // 
             // loginBtn
             // 
+            this.loginBtn.BackColor = System.Drawing.SystemColors.ControlLight;
             this.loginBtn.Location = new System.Drawing.Point(280, 139);
             this.loginBtn.Name = "loginBtn";
             this.loginBtn.Size = new System.Drawing.Size(86, 30);
             this.loginBtn.TabIndex = 4;
             this.loginBtn.Text = "Login";
-            this.loginBtn.UseVisualStyleBackColor = true;
+            this.loginBtn.UseVisualStyleBackColor = false;
             this.loginBtn.Click += new System.EventHandler(this.LoginBtn_Click);
             // 
             // cancelBtn
@@ -133,6 +134,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(724, 381);
             this.Controls.Add(this.resetBtn);
             this.Controls.Add(this.label4);
@@ -142,8 +144,8 @@
             this.Controls.Add(this.loginBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.passBox);
+            this.Controls.Add(this.loginBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "LoginForm";
@@ -157,8 +159,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox loginBox;
+        private System.Windows.Forms.TextBox passBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button loginBtn;

@@ -27,5 +27,17 @@ namespace UserManagementSystem
         {
             Application.OpenForms["MainScreen"].Show();
         }
+
+        private void LoginBtn_Click(object sender, EventArgs e)
+        {
+            if (passwordBox.Text.Length == 0 || loginBox.Text.Length == 0)
+            {
+                MessageBox.Show("Fill All Credentials");
+            }
+            else if (passwordBox.Text.Length < 5)
+            {
+                MessageBox.Show("Password should be atleast 5 characters long");
+            }
+        }
     }
 }

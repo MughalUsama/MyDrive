@@ -12,9 +12,35 @@ namespace UserManagementSystem
 {
     public partial class UpdatePasswordForm : Form
     {
-        public UpdatePasswordForm()
+        string userEmail;
+        Entity.UserDTO user;
+
+        public UpdatePasswordForm(string Email)
         {
+            userEmail = Email;
+            user = new Entity.UserDTO();
             InitializeComponent();
+        }
+
+        private void ConfirmBtn_Click(object sender, EventArgs e)
+        {
+            String newPassword = this.newPasswordTxtBox.Text;
+            if (newPassword.Length < 8)
+            {
+                MessageBox.Show("Password should be atleast 8 characters long");
+            }
+            else
+            {
+                if (UMS.BAL.UserBO.updatePassword(newPassword, userEmail, user))
+                {
+                    MessageBox.Show("Password Updated Successfully");
+                    this.Close();
+                    Application.OpenForms["loginForm"].Hide();
+                    HomeForm homeForm = new HomeForm(user);
+                    homeForm.Show();
+
+                }
+            }
         }
     }
 }

@@ -11,7 +11,9 @@ namespace UserManagementSystem
             userDTO = user;
             InitializeComponent();
             welcomeUser.Text += userDTO.Name + "!";
-            pictureBox1.Load(userDTO.ImageName);
+            String imageFolderPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            imageFolderPath += @"\images\" + userDTO.Login + @"\"+userDTO.ImageName;
+            this.pictureBox1.Load(imageFolderPath);
         }
 
         private void EditProfBtn_Click(object sender, EventArgs e)
@@ -24,6 +26,7 @@ namespace UserManagementSystem
 
         private void LogoutBtn_Click(object sender, EventArgs e)
         {
+            userDTO.clearDTO();
             this.Close();
             Application.OpenForms["MainScreen"].Show();
         }

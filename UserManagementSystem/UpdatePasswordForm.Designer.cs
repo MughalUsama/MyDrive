@@ -38,6 +38,7 @@
             this.newPasswordTxtBox.Font = new System.Drawing.Font("Rockwell", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.newPasswordTxtBox.Location = new System.Drawing.Point(59, 64);
             this.newPasswordTxtBox.Name = "newPasswordTxtBox";
+            this.newPasswordTxtBox.PasswordChar = '*';
             this.newPasswordTxtBox.Size = new System.Drawing.Size(206, 22);
             this.newPasswordTxtBox.TabIndex = 5;
             // 
@@ -50,6 +51,7 @@
             this.confirmBtn.TabIndex = 4;
             this.confirmBtn.Text = "Update";
             this.confirmBtn.UseVisualStyleBackColor = true;
+            this.confirmBtn.Click += new System.EventHandler(this.ConfirmBtn_Click);
             // 
             // enterCodeLabel
             // 
@@ -65,6 +67,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(328, 172);
             this.Controls.Add(this.newPasswordTxtBox);
             this.Controls.Add(this.confirmBtn);

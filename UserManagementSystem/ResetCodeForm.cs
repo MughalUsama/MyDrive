@@ -12,16 +12,28 @@ namespace UserManagementSystem
 {
     public partial class ResetCodeForm : Form
     {
-        public ResetCodeForm()
+        string resetcode, userEmail;
+        public ResetCodeForm(string code, string email)
         {
+            resetcode = code;
+            userEmail = email;
             InitializeComponent();
         }
 
         private void ConfirmBtn_Click(object sender, EventArgs e)
         {
-            this.Close();
-            UpdatePasswordForm updatePasswordForm = new UpdatePasswordForm();
-            updatePasswordForm.ShowDialog();
+            if(codeTxtBox.Text == resetcode)
+            {
+                this.Close();
+                UpdatePasswordForm updatePasswordForm = new UpdatePasswordForm(userEmail);
+                updatePasswordForm.ShowDialog();
+            }
+            else
+            {
+                this.Close();
+                MessageBox.Show("You Entered Wrong Code");
+            }
+
         }
     }
 }

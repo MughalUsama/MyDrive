@@ -30,8 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.loginBtn = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.loginBox = new System.Windows.Forms.TextBox();
+            this.passwordBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -53,20 +53,22 @@
             this.loginBtn.TabIndex = 1;
             this.loginBtn.Text = "Login";
             this.loginBtn.UseVisualStyleBackColor = true;
+            this.loginBtn.Click += new System.EventHandler(this.LoginBtn_Click);
             // 
-            // textBox1
+            // loginBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(104, 41);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(179, 20);
-            this.textBox1.TabIndex = 2;
+            this.loginBox.Location = new System.Drawing.Point(104, 41);
+            this.loginBox.Name = "loginBox";
+            this.loginBox.Size = new System.Drawing.Size(179, 20);
+            this.loginBox.TabIndex = 2;
             // 
-            // textBox2
+            // passwordBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(104, 83);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(179, 20);
-            this.textBox2.TabIndex = 4;
+            this.passwordBox.Location = new System.Drawing.Point(104, 83);
+            this.passwordBox.Name = "passwordBox";
+            this.passwordBox.PasswordChar = '*';
+            this.passwordBox.Size = new System.Drawing.Size(179, 20);
+            this.passwordBox.TabIndex = 4;
             // 
             // label2
             // 
@@ -93,9 +95,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(362, 207);
             this.Controls.Add(this.cancelBtn);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.passwordBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.loginBox);
             this.Controls.Add(this.loginBtn);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -113,8 +115,8 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button loginBtn;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox loginBox;
+        private System.Windows.Forms.TextBox passwordBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button cancelBtn;
     }

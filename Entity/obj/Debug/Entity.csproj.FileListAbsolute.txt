@@ -1,0 +1,6 @@
+E:\University\PUCIT\6th Semester (USAMA)\EAD\Assignment2\Entity\bin\Debug\Entity.dll
+E:\University\PUCIT\6th Semester (USAMA)\EAD\Assignment2\Entity\bin\Debug\Entity.pdb
+E:\University\PUCIT\6th Semester (USAMA)\EAD\Assignment2\Entity\obj\Debug\Entity.csprojAssemblyReference.cache
+E:\University\PUCIT\6th Semester (USAMA)\EAD\Assignment2\Entity\obj\Debug\Entity.csproj.CoreCompileInputs.cache
+E:\University\PUCIT\6th Semester (USAMA)\EAD\Assignment2\Entity\obj\Debug\Entity.dll
+E:\University\PUCIT\6th Semester (USAMA)\EAD\Assignment2\Entity\obj\Debug\Entity.pdb

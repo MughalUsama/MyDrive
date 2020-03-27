@@ -8,14 +8,39 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UMS.BAL;
+using Entity;
 
 namespace UserManagementSystem
 {
     public partial class NewUserForm : Form
     {
+        Entity.UserDTO userDTO = null;
+        public Boolean isLoggedIn { get; set; }
         public NewUserForm()
         {
             InitializeComponent();
+        }
+        public NewUserForm(Entity.UserDTO user)
+        {
+            userDTO = user;
+            InitializeComponent();
+            this.nameTxtBox.Text = userDTO.Name;
+            this.loginTxtBox.Text = userDTO.Login;
+            this.emailTxtBox.Text = userDTO.Email;
+            this.passwordTxtBox.Text = userDTO.Password;
+            this.dobPicker.Value = userDTO.DOB;
+            this.genderBox.Text = userDTO.Gender + "";
+            this.addressTxtBox.Text = userDTO.Address;
+            this.ageBox.Value = userDTO.Age;
+            this.nicTxtBox.Text = userDTO.NIC;
+            this.cricketCheckBox.Checked = (userDTO.IsCricket == 1);
+            this.hockeyCheckBox.Checked = (userDTO.Hockey == 1);
+            this.chessCheckBox.Checked = (userDTO.Chess == 1);
+            this.userPictureBox.Load(userDTO.ImageName);
+
+
+
         }
         int errorCount = 0;
         private void UploadBtn_Click(object sender, EventArgs e)
@@ -37,7 +62,14 @@ namespace UserManagementSystem
         private void CancelBtn_Click(object sender, EventArgs e)
         {
             this.Close();
-            Application.OpenForms["MainScreen"].Show();
+            if (isLoggedIn)
+            {
+                Application.OpenForms["homeForm"].Show();
+            }
+            else
+            {
+                Application.OpenForms["MainScreen"].Show();
+            }
 
         }
        
@@ -63,15 +95,62 @@ namespace UserManagementSystem
             }
             else
             {
+                Entity.UserDTO userDTO = new UserDTO();
+                userDTO.Name = nameTxtBox.Text;
+                userDTO.Login = loginTxtBox.Text;
+                userDTO.NIC = nicTxtBox.Text;
+                userDTO.Password = passwordTxtBox.Text;
+                userDTO.Gender = genderBox.Text[0];
+                userDTO.Age = (int)ageBox.Value;
+                userDTO.Address = addressTxtBox.Text;
+                userDTO.DOB = dobPicker.Value;
+                userDTO.Email = emailTxtBox.Text;
+                if(chessCheckBox.Checked)
+                {
+                    userDTO.Chess = 1 ;
+                }
+                else
+                {
+                    userDTO.Chess = 0;
+                }
+                if(hockeyCheckBox.Checked)
+                {
+                    userDTO.Hockey = 1;
+                }
+                else
+                {
+                    userDTO.Hockey = 0;
+                }
+                if(cricketCheckBox.Checked)
+                {
+                    userDTO.IsCricket = 1;
+                }
+                else
+                {
+                    userDTO.IsCricket = 0;
+                }
+                userDTO.IsActive = 1;
+                userDTO.ImageName = userPictureBox.ImageLocation;
+                if (!isLoggedIn)
+                {
+                    UMS.BAL.UserBO.addUser(userDTO);
+                }
                 this.Hide();
-                HomeForm homeForm = new HomeForm();
+                HomeForm homeForm = new HomeForm(userDTO);
                 homeForm.Show();
             }
         }
 
         private void NewUserForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.OpenForms["MainScreen"].Show();
+            if (isLoggedIn)
+            {
+                Application.OpenForms["homeForm"].Show();
+            }
+            else
+            {
+                Application.OpenForms["MainScreen"].Show();
+            }
         }
 
 
@@ -103,6 +182,14 @@ namespace UserManagementSystem
                 if (errorProvider2.GetError(this.loginTxtBox) == "")
                 {
                     errorProvider2.SetError(this.loginTxtBox, "Please fill this field");
+                    errorCount++;
+                }
+            }
+            else if (UserBO.userExists(loginTxtBox.Text))
+            {
+                if (errorProvider2.GetError(this.loginTxtBox) == "")
+                {
+                    errorProvider2.SetError(this.loginTxtBox, "Login Already in Use");
                     errorCount++;
                 }
             }

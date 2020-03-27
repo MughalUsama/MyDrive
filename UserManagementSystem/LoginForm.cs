@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UMS.BAL;
 
 namespace UserManagementSystem
 {
@@ -37,6 +38,14 @@ namespace UserManagementSystem
 
         private void LoginBtn_Click(object sender, EventArgs e)
         {
+            if(UserBO.userExists(textBox1.Text))
+            {
+                MessageBox.Show("User Exists");
+            }
+            else
+            {
+                MessageBox.Show("User Dont Exists");
+            }
         }
     }
 }

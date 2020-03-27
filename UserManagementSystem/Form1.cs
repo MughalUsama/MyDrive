@@ -28,6 +28,7 @@ namespace UserManagementSystem
         {
             this.Hide();
             NewUserForm newUserForm = new NewUserForm();
+            newUserForm.isLoggedIn = false;
             newUserForm.Show();
         }
 

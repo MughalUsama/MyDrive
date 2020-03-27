@@ -30,7 +30,7 @@
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.editProfBtn = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.logoutBtn = new System.Windows.Forms.Button();
             this.welcomeUser = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -40,6 +40,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(529, 46);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(181, 145);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -51,15 +52,17 @@
             this.editProfBtn.TabIndex = 1;
             this.editProfBtn.Text = "Edit Profile";
             this.editProfBtn.UseVisualStyleBackColor = true;
+            this.editProfBtn.Click += new System.EventHandler(this.EditProfBtn_Click);
             // 
-            // button2
+            // logoutBtn
             // 
-            this.button2.Location = new System.Drawing.Point(568, 244);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(106, 33);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Logout";
-            this.button2.UseVisualStyleBackColor = true;
+            this.logoutBtn.Location = new System.Drawing.Point(568, 244);
+            this.logoutBtn.Name = "logoutBtn";
+            this.logoutBtn.Size = new System.Drawing.Size(106, 33);
+            this.logoutBtn.TabIndex = 2;
+            this.logoutBtn.Text = "Logout";
+            this.logoutBtn.UseVisualStyleBackColor = true;
+            this.logoutBtn.Click += new System.EventHandler(this.LogoutBtn_Click);
             // 
             // welcomeUser
             // 
@@ -81,10 +84,12 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.welcomeUser);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.logoutBtn);
             this.Controls.Add(this.editProfBtn);
             this.Controls.Add(this.pictureBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "HomeForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Home";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -96,7 +101,7 @@
 
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button editProfBtn;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button logoutBtn;
         private System.Windows.Forms.Label welcomeUser;
     }
 }

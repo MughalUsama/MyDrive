@@ -429,6 +429,7 @@
             this.Text = "New User";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NewUserForm_FormClosing);
             this.Load += new System.EventHandler(this.NewUserForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NewUserForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.ageBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();

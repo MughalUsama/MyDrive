@@ -20,6 +20,14 @@ namespace UserManagementSystem
             InitializeComponent();
         }
 
+        private void CodeTxtBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ConfirmBtn_Click(sender, e);
+            }
+        }
+
         private void ConfirmBtn_Click(object sender, EventArgs e)
         {
             if(codeTxtBox.Text == resetcode)

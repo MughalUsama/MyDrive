@@ -26,7 +26,7 @@ namespace UserManagementSystem
         private void EditProfBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
-            NewUserForm newUserForm = new NewUserForm(userDTO);
+            NewUserForm newUserForm = new NewUserForm(userDTO,new Entity.AdminDTO(), false);
             newUserForm.isLoggedIn = true;
             newUserForm.Show();
         }

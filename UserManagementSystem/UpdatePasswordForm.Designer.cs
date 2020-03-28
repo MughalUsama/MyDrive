@@ -41,6 +41,7 @@
             this.newPasswordTxtBox.PasswordChar = '*';
             this.newPasswordTxtBox.Size = new System.Drawing.Size(206, 22);
             this.newPasswordTxtBox.TabIndex = 5;
+            this.newPasswordTxtBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NewPasswordTxtBox_KeyDown);
             // 
             // confirmBtn
             // 

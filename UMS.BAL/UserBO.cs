@@ -36,9 +36,9 @@ namespace UMS.BAL
                 return false;
             }
         }
-        public static Boolean updateUser(Entity.UserDTO userDTO)
+        public static Boolean updateUser(Entity.UserDTO userDTO, Entity.AdminDTO adminDTO,bool isAdmin)
         {
-            if (DAL.UserDAO.updateUser(userDTO))
+            if (DAL.UserDAO.updateUser(userDTO,adminDTO,isAdmin))
             {
                 return true;
             }

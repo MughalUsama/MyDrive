@@ -19,5 +19,9 @@ namespace UMS.BAL
                 return false;
             }
         }
+        public static List<Entity.UserDTO> getAllUsers()
+        {
+            return DAL.UserDAO.getAllUsers();
+        }
     }
 }

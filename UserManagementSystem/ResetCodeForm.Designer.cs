@@ -64,6 +64,7 @@
             this.codeTxtBox.Size = new System.Drawing.Size(206, 22);
             this.codeTxtBox.TabIndex = 2;
             this.toolTip1.SetToolTip(this.codeTxtBox, "Enter Code sent to you via Email");
+            this.codeTxtBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CodeTxtBox_KeyDown);
             // 
             // ResetCodeForm
             // 
@@ -75,6 +76,7 @@
             this.Controls.Add(this.confirmBtn);
             this.Controls.Add(this.enterCodeLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "ResetCodeForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

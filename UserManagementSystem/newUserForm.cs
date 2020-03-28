@@ -17,14 +17,20 @@ namespace UserManagementSystem
     public partial class NewUserForm : Form
     {
         Entity.UserDTO userDTO = null;
+        Entity.AdminDTO adminDTO = null;
         public Boolean isLoggedIn { get; set; }
+        public Boolean isAdmin{ get; set; }
         public NewUserForm()
         {
             InitializeComponent();
+            this.KeyPreview = true;
         }
-        public NewUserForm(Entity.UserDTO user)
+        public NewUserForm(Entity.UserDTO user, Entity.AdminDTO admin ,bool isadmin)
         {
+            this.KeyPreview = true;
             userDTO = user;
+            adminDTO = admin;
+            isAdmin = isadmin;
             InitializeComponent();
             this.nameTxtBox.Text = userDTO.Name;
             this.loginTxtBox.Text = userDTO.Login;
@@ -46,7 +52,10 @@ namespace UserManagementSystem
             }
             catch
             {
-                MessageBox.Show("Please upload your profile picture!");
+                if(!isAdmin)
+                {
+                    MessageBox.Show("Please upload your profile picture!");
+                }
             }
 
         }
@@ -71,14 +80,6 @@ namespace UserManagementSystem
         private void CancelBtn_Click(object sender, EventArgs e)
         {
             this.Close();
-            if (isLoggedIn)
-            {
-                Application.OpenForms["homeForm"].Show();
-            }
-            else
-            {
-                Application.OpenForms["MainScreen"].Show();
-            }
         }
        
         private void CreateBtn_Click(object sender, EventArgs e)
@@ -102,60 +103,60 @@ namespace UserManagementSystem
             }
             else
             {
-                Entity.UserDTO userDTO = new UserDTO();
-                userDTO.Name = nameTxtBox.Text;
-                userDTO.Login = loginTxtBox.Text;
-                userDTO.NIC = nicTxtBox.Text;
-                userDTO.Password = passwordTxtBox.Text;
-                userDTO.Gender = genderBox.Text[0];
-                userDTO.Age = (int)ageBox.Value;
-                userDTO.Address = addressTxtBox.Text;
-                userDTO.DOB = dobPicker.Value;
-                userDTO.Email = emailTxtBox.Text;
+                Entity.UserDTO userdto = new UserDTO();
+                userdto.Name = nameTxtBox.Text;
+                userdto.Login = loginTxtBox.Text;
+                userdto.NIC = nicTxtBox.Text;
+                userdto.Password = passwordTxtBox.Text;
+                userdto.Gender = genderBox.Text[0];
+                userdto.Age = (int)ageBox.Value;
+                userdto.Address = addressTxtBox.Text;
+                userdto.DOB = dobPicker.Value;
+                userdto.Email = emailTxtBox.Text;
+                userdto.UserID = userDTO.UserID;
                 if(chessCheckBox.Checked)
                 {
-                    userDTO.Chess = 1 ;
+                    userdto.Chess = 1 ;
                 }
                 else
                 {
-                    userDTO.Chess = 0;
+                    userdto.Chess = 0;
                 }
                 if(hockeyCheckBox.Checked)
                 {
-                    userDTO.Hockey = 1;
+                    userdto.Hockey = 1;
                 }
                 else
                 {
-                    userDTO.Hockey = 0;
+                    userdto.Hockey = 0;
                 }
                 if(cricketCheckBox.Checked)
                 {
-                    userDTO.IsCricket = 1;
+                    userdto.IsCricket = 1;
                 }
                 else
                 {
-                    userDTO.IsCricket = 0;
+                    userdto.IsCricket = 0;
                 }
-                userDTO.IsActive = 1;
+                userdto.IsActive = 1;
                 string imageName = userPictureBox.ImageLocation.ToString();
                 imageName = imageName.Substring(imageName.LastIndexOf("\\"));
                 imageName = imageName.Remove(0, 1);
                 String imageFolderPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-                imageFolderPath += @"\images\" + userDTO.Login + @"\";
+                imageFolderPath += @"\images\" + userdto.Login + @"\";
                 System.IO.Directory.CreateDirectory(imageFolderPath);
                 imageFolderPath += imageName;
                 if (!File.Exists(imageFolderPath))
                 {
                     userPictureBox.Image.Save(imageFolderPath);
                 }
-                userDTO.ImageName = imageName;
-                if (!isLoggedIn)
+                userdto.ImageName = imageName;
+                if (!isLoggedIn && !isAdmin)
                 {
-                    if (UMS.BAL.UserBO.addUser(userDTO))
+                    if (UMS.BAL.UserBO.addUser(userdto))
                     {
-                        this.Hide();
-                        HomeForm homeForm = new HomeForm(userDTO);
-                        homeForm.Show();
+                        this.Close();
+                        Application.OpenForms["homeForm"].Show();
                     }
                     else
                     {
@@ -164,7 +165,7 @@ namespace UserManagementSystem
                 }
                 else
                 {
-                    if(UMS.BAL.UserBO.updateUser(userDTO))
+                    if(UMS.BAL.UserBO.updateUser(userdto, adminDTO,isAdmin))
                     {
                         MessageBox.Show("Updated Successfully");
                     }
@@ -172,9 +173,7 @@ namespace UserManagementSystem
                     {
                         MessageBox.Show("Updated Failed");
                     }
-                    this.Hide();
-                    HomeForm homeForm = new HomeForm(userDTO);
-                    homeForm.Show();
+                    this.Close();
                 }
                    
             }
@@ -185,6 +184,11 @@ namespace UserManagementSystem
             if (isLoggedIn)
             {
                 Application.OpenForms["homeForm"].Show();
+            }
+            else if(isAdmin)
+            {
+                AdminHomeForm homeForm = new AdminHomeForm(adminDTO);
+                homeForm.Show();
             }
             else
             {
@@ -224,19 +228,19 @@ namespace UserManagementSystem
                     errorCount++;
                 }
             }
-            else if (UserBO.userExists(loginTxtBox.Text) && !isLoggedIn)
+            else if (UserBO.userExists(loginTxtBox.Text) && !isLoggedIn && !isAdmin)
             {
                 if (errorProvider2.GetError(this.loginTxtBox) == "")
                 {
-                    errorProvider2.SetError(this.loginTxtBox, "Login Already in Use1");
+                    errorProvider2.SetError(this.loginTxtBox, "Login Already in Use");
                     errorCount++;
                 }
             }
-            else if (UserBO.userExists(loginTxtBox.Text) && isLoggedIn && loginTxtBox.Text.ToUpper() != userDTO.Login.ToUpper())
+            else if (UserBO.userExists(loginTxtBox.Text) && (isLoggedIn || isAdmin) && loginTxtBox.Text.ToUpper() != userDTO.Login.ToUpper())
             {
                 if (errorProvider2.GetError(this.loginTxtBox) == "")
                 {
-                    errorProvider2.SetError(this.loginTxtBox, "Login Already in Use2");
+                    errorProvider2.SetError(this.loginTxtBox, "Login Already in Use");
                     errorCount++;
                 }
             }
@@ -282,7 +286,7 @@ namespace UserManagementSystem
                     errorCount++;
                 }
             }
-            else if((UserBO.emailExists(emailTxtBox.Text) && !isLoggedIn))
+            else if((UserBO.emailExists(emailTxtBox.Text) && !isLoggedIn && !isAdmin))
             {
                 if (errorProvider4.GetError(this.emailTxtBox) == "")
                 {
@@ -290,7 +294,7 @@ namespace UserManagementSystem
                     errorCount++;
                 }
             }
-            else if (UserBO.emailExists(emailTxtBox.Text) && isLoggedIn &&emailTxtBox.Text.ToUpper()!=userDTO.Email.ToUpper())
+            else if (UserBO.emailExists(emailTxtBox.Text) && (isLoggedIn || isAdmin) && emailTxtBox.Text.ToUpper()!=userDTO.Email.ToUpper())
             {
                 if (errorProvider4.GetError(this.emailTxtBox) == "")
                 {
@@ -372,6 +376,14 @@ namespace UserManagementSystem
         {
             String imageFolderPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
             System.IO.Directory.CreateDirectory(imageFolderPath + @"\images\");
+        }
+
+        private void NewUserForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                CreateBtn_Click(sender, e);
+            }
         }
     }
 }

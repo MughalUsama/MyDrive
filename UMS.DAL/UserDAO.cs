@@ -76,6 +76,7 @@ namespace UMS.DAL
                     var reader = dBConnection.ExecuteReader(sqlquery);
                     if (reader.Read())
                     {
+                        user.UserID = (int)reader["UserID"];
                         user.Name =(string)reader["Name"];
                         user.Email = (string)reader["Email"];
                         user.Password = (string)reader["Password"];
@@ -133,9 +134,14 @@ namespace UMS.DAL
                 return false;
             }
         }
-        public static Boolean updateUser(Entity.UserDTO userDTO)
+        public static Boolean updateUser(Entity.UserDTO userDTO, Entity.AdminDTO adminDTO, bool isAdmin)
         {
-            String sqlQuery = String.Format("Update dbo.Users Set Login = '{0}',Name='{1}',Email='{2}',Password='{3}',Gender='{4}',Age={5},Address='{6}',NIC='{7}',DOB='{8}',IsCricket={9},Hockey={10},Chess={11},ImageName='{12}',CreatedOn = GETDATE(), ModifiedOn = GETDATE(),IsActive={13},CreatedBy='{14}',ModifiedBy='{15}' where Login='{16}';", userDTO.Login, userDTO.Name, userDTO.Email, userDTO.Password, userDTO.Gender, userDTO.Age, userDTO.Address, userDTO.NIC, userDTO.DOB, userDTO.IsCricket, userDTO.Hockey, userDTO.Chess, userDTO.ImageName, userDTO.IsActive, userDTO.Login, userDTO.Login, userDTO.Login);
+            String modifiedBy = userDTO.Login;
+            if(isAdmin)
+            {
+                modifiedBy = adminDTO.Login;
+            }
+            String sqlQuery = String.Format("Update dbo.Users Set Login = '{0}',Name='{1}',Email='{2}',Password='{3}',Gender='{4}',Age={5},Address='{6}',NIC='{7}',DOB='{8}',IsCricket={9},Hockey={10},Chess={11},ImageName='{12}', ModifiedOn = GETDATE(),IsActive={13},ModifiedBy='{14}' where UserID={15};", userDTO.Login, userDTO.Name, userDTO.Email, userDTO.Password, userDTO.Gender, userDTO.Age, userDTO.Address, userDTO.NIC, userDTO.DOB, userDTO.IsCricket, userDTO.Hockey, userDTO.Chess, userDTO.ImageName, userDTO.IsActive, modifiedBy, userDTO.UserID);
             try
             {
                 using (DBConnection dBConnection = new DBConnection())
@@ -250,6 +256,74 @@ namespace UMS.DAL
                 return false;
             }
         }
+        public static List<Entity.UserDTO> getAllUsers()
+        {
+            List<Entity.UserDTO> userDTOs = new List<Entity.UserDTO>();
+            try
+            {
+                String sqlquery = "Select * from dbo.Users where IsActive=1;";
+                using (DBConnection dBConnection = new DBConnection())
+                {
+                    var reader = dBConnection.ExecuteReader(sqlquery);
+                    while (reader.Read())
+                    {
+                        String name = (string)reader["Name"]; ;
+                        String email = (string)reader["Email"]; ;
+                        String address = (string)reader["Address"]; ;
+                        String login = (string)reader["Login"]; ;
+                        int userID = (int)reader["UserID"];
+                        int age = (int)reader["Age"];
+                        String password = (string)reader["Password"];
+                        Char gender = ((string)reader["Gender"])[0];
+                        String nIC = (string)reader["NIC"];
+                        DateTime dOB = (DateTime)reader["DOB"];
+                        int isActive, isCricket, hockey, chess;
+                        if ((bool)reader["IsActive"])
+                        {
+                             isActive = 1;
+                        }
+                        else
+                        {
+                            isActive = 0;
+                        }
+                        if ((bool)reader["IsCricket"])
+                        {
+                            isCricket = 1;
+                        }
+                        else
+                        {
+                            isCricket = 0;
+                        }
+                        if ((bool)reader["Hockey"])
+                        {
+                            hockey = 1;
+                        }
+                        else
+                        {
+                            hockey = 0;
+                        }
+                        if ((bool)reader["Chess"])
+                        {
+                            chess = 1;
+                        }
+                        else
+                        {
+                            chess = 0;
+                        }
 
+                        String imageName = (string)reader["ImageName"];
+
+                        userDTOs.Add(new Entity.UserDTO() { Address = address, Login = login, Age = age, Email = email, Name = name, UserID = userID, ImageName = imageName,Password=password,IsActive= isActive,IsCricket=isCricket,Chess=chess,Hockey=hockey,DOB = dOB,NIC=nIC,Gender=gender });
+ 
+
+                    }
+                }
+                return userDTOs;
+            }
+            catch
+            {
+                return new List<Entity.UserDTO>();
+            }
+        }
     }
 }

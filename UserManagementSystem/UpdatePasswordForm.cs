@@ -42,5 +42,13 @@ namespace UserManagementSystem
                 }
             }
         }
+
+        private void NewPasswordTxtBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ConfirmBtn_Click(sender, e);
+            }
+        }
     }
 }

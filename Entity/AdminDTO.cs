@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace Entity
 {
-    class AdminDTO
+
+    public class AdminDTO
     {
+        public String AdminName { get; set; }
+        public String Login { get; set; }
+        public String Password { get; set; }
+        public int IsActive { get; set; }
+        public void clearDTO()
+        {
+            this.AdminName = null;
+            this.Login = null;
+            this.Password = null;
+            this.IsActive = 0;
+        }
     }
 }

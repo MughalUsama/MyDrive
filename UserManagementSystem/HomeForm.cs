@@ -13,7 +13,14 @@ namespace UserManagementSystem
             welcomeUser.Text += userDTO.Name + "!";
             String imageFolderPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
             imageFolderPath += @"\images\" + userDTO.Login + @"\"+userDTO.ImageName;
-            this.pictureBox1.Load(imageFolderPath);
+            try
+            {
+                this.pictureBox1.Load(imageFolderPath);
+            }
+            catch
+            {
+                MessageBox.Show("Profile image could not be found! \n Please Upload Another Image");
+            }
         }
 
         private void EditProfBtn_Click(object sender, EventArgs e)

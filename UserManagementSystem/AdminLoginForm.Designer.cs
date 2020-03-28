@@ -50,7 +50,7 @@
             this.loginBtn.Location = new System.Drawing.Point(95, 128);
             this.loginBtn.Name = "loginBtn";
             this.loginBtn.Size = new System.Drawing.Size(85, 27);
-            this.loginBtn.TabIndex = 1;
+            this.loginBtn.TabIndex = 3;
             this.loginBtn.Text = "Login";
             this.loginBtn.UseVisualStyleBackColor = true;
             this.loginBtn.Click += new System.EventHandler(this.LoginBtn_Click);
@@ -60,7 +60,8 @@
             this.loginBox.Location = new System.Drawing.Point(104, 41);
             this.loginBox.Name = "loginBox";
             this.loginBox.Size = new System.Drawing.Size(179, 20);
-            this.loginBox.TabIndex = 2;
+            this.loginBox.TabIndex = 1;
+            this.loginBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LoginBox_KeyDown);
             // 
             // passwordBox
             // 
@@ -68,7 +69,8 @@
             this.passwordBox.Name = "passwordBox";
             this.passwordBox.PasswordChar = '*';
             this.passwordBox.Size = new System.Drawing.Size(179, 20);
-            this.passwordBox.TabIndex = 4;
+            this.passwordBox.TabIndex = 2;
+            this.passwordBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PasswordBox_KeyDown);
             // 
             // label2
             // 
@@ -84,7 +86,7 @@
             this.cancelBtn.Location = new System.Drawing.Point(186, 128);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(85, 27);
-            this.cancelBtn.TabIndex = 5;
+            this.cancelBtn.TabIndex = 4;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = true;
             this.cancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);

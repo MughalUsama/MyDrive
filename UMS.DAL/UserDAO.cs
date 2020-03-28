@@ -26,7 +26,7 @@ namespace UMS.DAL
                     }
                 }
             }
-            catch(Exception ex)
+            catch
             {
                 return false;
             }

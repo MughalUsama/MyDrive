@@ -12,10 +12,24 @@ namespace UserManagementSystem
 {
     public partial class AdminHomeForm : Form
     {
-        public AdminHomeForm()
+        Entity.AdminDTO admin = new Entity.AdminDTO();
+        public AdminHomeForm(Entity.AdminDTO adminDTO)
         {
+            admin = adminDTO;
             InitializeComponent();
         }
 
+        private void AdminHomeForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            admin.clearDTO();
+            Application.OpenForms["MainScreen"].Show();
+        }
+
+        private void LogoutBtn_Click(object sender, EventArgs e)
+        {
+            admin.clearDTO();
+            this.Close();
+            Application.OpenForms["MainScreen"].Show();
+        }
     }
 }

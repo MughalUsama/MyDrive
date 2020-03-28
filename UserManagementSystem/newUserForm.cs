@@ -40,7 +40,15 @@ namespace UserManagementSystem
             this.chessCheckBox.Checked = (userDTO.Chess == 1);
             String imageFolderPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
             imageFolderPath += @"\images\" + userDTO.Login + @"\"+userDTO.ImageName;
-            this.userPictureBox.Load(imageFolderPath);
+            try
+            {
+                this.userPictureBox.Load(imageFolderPath);
+            }
+            catch
+            {
+                MessageBox.Show("Please upload your profile picture!");
+            }
+
         }
         int errorCount = 0;
         private void UploadBtn_Click(object sender, EventArgs e)

@@ -35,9 +35,11 @@
             this.loginBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.emailBox3 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.resetBtn = new System.Windows.Forms.Button();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.bgSendEmail = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // loginBox
@@ -46,6 +48,7 @@
             this.loginBox.Name = "loginBox";
             this.loginBox.Size = new System.Drawing.Size(175, 20);
             this.loginBox.TabIndex = 0;
+            this.loginBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LoginBox_KeyDown);
             // 
             // passBox
             // 
@@ -54,6 +57,7 @@
             this.passBox.PasswordChar = '*';
             this.passBox.Size = new System.Drawing.Size(175, 20);
             this.passBox.TabIndex = 1;
+            this.passBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PassBox_KeyDown);
             // 
             // label1
             // 
@@ -103,12 +107,13 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Email";
             // 
-            // textBox3
+            // emailBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(295, 266);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(175, 20);
-            this.textBox3.TabIndex = 6;
+            this.emailBox3.Location = new System.Drawing.Point(295, 266);
+            this.emailBox3.Name = "emailBox3";
+            this.emailBox3.Size = new System.Drawing.Size(175, 20);
+            this.emailBox3.TabIndex = 6;
+            this.emailBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EmailBox3_KeyDown);
             // 
             // label4
             // 
@@ -130,16 +135,33 @@
             this.resetBtn.UseVisualStyleBackColor = true;
             this.resetBtn.Click += new System.EventHandler(this.ResetBtn_Click);
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(499, 266);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(100, 20);
+            this.progressBar1.TabIndex = 10;
+            this.progressBar1.Visible = false;
+            // 
+            // bgSendEmail
+            // 
+            this.bgSendEmail.WorkerReportsProgress = true;
+            this.bgSendEmail.WorkerSupportsCancellation = true;
+            this.bgSendEmail.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BgSendEmail_DoWork);
+            this.bgSendEmail.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BgSendEmail_ProgressChanged);
+            this.bgSendEmail.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BgSendEmail_RunWorkerCompleted);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(724, 381);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.resetBtn);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.emailBox3);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.loginBtn);
             this.Controls.Add(this.label2);
@@ -166,8 +188,10 @@
         private System.Windows.Forms.Button loginBtn;
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox emailBox3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button resetBtn;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.ComponentModel.BackgroundWorker bgSendEmail;
     }
 }

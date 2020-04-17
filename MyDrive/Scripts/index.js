@@ -1,13 +1,13 @@
 $(document).ready(function() {
-   $('#nav-signup').click(function () {
-            $('#nav-signup').fadeOut('fast',function () {
-                $('#nav-login').fadeIn();
-            });
+    $('#nav-signup').click(function () {
+        $('#nav-signup').fadeOut('fast',function () {
+            $('#nav-login').fadeIn();
+        });
 
-           $('#loginform').fadeOut('fast',function () {
-               $('#signupform').fadeIn();
-           });
-           $('#signedupmsg').hide();
+       $('#loginform').fadeOut('fast',function () {
+           $('#signupform').fadeIn();
+       });
+       $('#signedupmsg').hide();
       }
    );
     $('#nav-login').click(function () {
@@ -32,6 +32,32 @@ $(document).ready(function() {
         $('#loginform').hide();
         $('#signupform').show();
     }
+    $('#loginform').on('submit',
+        function () {
+            console.log("fdzf");
+            var loginEmail = $("#loginEmail").val();
+            var loginPassword = $("#loginPassword").val();
+            var logindata = { login_Email: loginEmail, login_Password: loginPassword }
+            debugger 
+            $.ajax(
+                {
+                    url: '/User/ValidateUser',
+                    type: 'Post',
+                    datatype: 'text',
+                    data: logindata,
+                    success: function (resp) {
+                        console.log(resp.Error);
+                        $("#loginError").text(resp.Error);
+                    },
+                    error: function(resp) {
+                        $("#loginError").text(resp.text);
+                    }
+                }
+            );
+            return false;
+        });
+
+    
 
     $('#signupform').on('submit',function()
     {

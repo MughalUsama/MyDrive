@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>
-    <form id="loginform" method="post" action="index.php" class="mr-5 myform p-5 col-md-4 ml-md-0 ">
+    <form id="loginform" method="post" class="mr-5 myform p-5 col-md-4 ml-md-0 ">
         <h1 class="text-center">Login</h1>
         <div class="form-group p-2">
             <label for="loginEmail">Email address</label>
@@ -48,14 +48,9 @@
             <label for="loginPassword">Password</label>
             <input type="password" class="form-control" name="loginPassword" id="loginPassword" placeholder="Enter Your Password" minlength="8" maxlength="20" required>
         </div>
-        @*<?php
-            if($wrongCredentials==true)
-            {
-            ?>
-            <p class="text-center text-danger">Wrong Credentials</p>
-            <?php
-            }
-            ?>*@
+       
+            <p id="loginError" class="text-center text-danger"></p>
+          
         <div class="text-center p-2">
             <button type="submit" name="btnlogin" class="btn btn-lg btn-primary">Login!</button>
         </div>

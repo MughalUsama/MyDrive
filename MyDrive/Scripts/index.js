@@ -34,7 +34,6 @@ $(document).ready(function() {
     }
     $('#loginform').on('submit',
         function () {
-            console.log("fdzf");
             var loginEmail = $("#loginEmail").val();
             var loginPassword = $("#loginPassword").val();
             var logindata = { login_Email: loginEmail, login_Password: loginPassword }

@@ -288,9 +288,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyDrive.Entities\MyDrive.Entities.csproj">
+    <ProjectReference Include="..\MyDrive.BAL\MyDrive_BAL.csproj">
+      <Project>{d836211b-060c-4c73-8d10-06e326eb41e7}</Project>
+      <Name>MyDrive_BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyDrive.Entities\MyDrive_Entities.csproj">
       <Project>{e681c709-2bef-4fa1-9aa9-7b2ea0f9bfa4}</Project>
-      <Name>MyDrive.Entities</Name>
+      <Name>MyDrive_Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyDrive.Entities
+namespace MyDrive_Entities
 {
     class FolderDTO
     {

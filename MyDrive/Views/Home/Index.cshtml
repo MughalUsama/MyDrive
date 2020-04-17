@@ -1,5 +1,9 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Welcome to";
+    if (ViewBag.LoggedIn)
+    {
+        Response.Redirect("~/User/Home");
+    }
 }
 @section styles{
     @Styles.Render("~/Content/index.css")
@@ -93,5 +97,10 @@
     </form>
 </div>
 @section scripts{
+    <script>
+        if ("@ViewBag.LoggedIn.ToString()"=="True") {
+            window.location = "@Url.Content("~/User/Home")";
+        }
+    </script>
     <script type="text/javascript" src="~/Scripts/index.js"></script>
 }

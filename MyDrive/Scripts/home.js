@@ -1,28 +1,30 @@
 $(document).ready(function(){
-	var pageLoad=function(folderid){
+    var pageLoad = function (folderid) {
 		$.ajax(
 				{
-					url: 'getFolders.php',
+					url: '/User/GetFolders',
 					type: 'Post',
 					dataType: 'json',
-					data: {folder:folderid},
+					data: {pf_id:folderid},
 					success: displayFolders
 				}
 			);
 	};
 	var colorindex=	Math.floor(Math.random() * 4);     // returns a random integer from 0 to 3
-	var currentpfid = null;
-	pageLoad(null);
+	var currentpfid = -1;
+    pageLoad(-1);
+
+
 	function displayFolders(data)
-	{
-		$('#foldersCards').empty();
+    {
+        $('#foldersCards').empty();
 		var colors=["bg-primary","bg-danger","bg-inverse","bg-success"]
-		for (var folders of data) {
+		for(var folders of data) {
 			var cards=  '<div class="col-sm-3">'+
-						'<div fid='+folders["FolderId"]+' class="card mycards text-center text-white borderDiv '+colors[colorindex]+' mb-3">'+
+						'<div fid='+folders["folderID"]+' class="card mycards text-center text-white borderDiv '+colors[colorindex]+' mb-3">'+
 						'  <div class="card-body">'+
-						'    <h4 class="card-title card-font">'+folders["FolderName"]+'</h4><hr>'+
-						'    <img src="card-folder.png" class="img-fluid wid"'+
+						'    <h4 class="card-title card-font">'+folders["folderName"]+'</h4><hr>'+
+						'    <img src="/Content/images/card-folder.png" class="img-fluid wid"'+
 						'  </div>'+
 						'</div>'+
 						'</div>';
@@ -35,21 +37,23 @@ $(document).ready(function(){
 	$("#createNewFolder").on("click",function () {
 
 		var name = $("#newfoldername").val();
-		if (name!=''){
-			$.ajax(
-				{
-					url: 'addFolder.php',
+		if (name!='') {
+            $.ajax(
+                {
+                    url: '/User/AddFolder',
 					type: 'Post',
 					dataType: 'json',
-					data: {fname:name,pfid:currentpfid},
-					success: displayFolders
+                    data: { folder_name: name, pf_id: currentpfid},
+                    success: displayFolders,
 				}
 			);
 		}
 		else {
 			alert("Folder Name Cannot Be Empty");
 		}
-	});
+    });
+
+
 	$("body").on('click','.card',function () {
 		$('.card').not(this).removeClass('selectedDiv');
 		$(this).toggleClass('selectedDiv');

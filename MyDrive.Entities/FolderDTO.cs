@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace MyDrive_Entities
 {
-    class FolderDTO
+    public class FolderDTO
     {
+        public String folderName { get; set; }
+        public int folderID { get; set; }
+        public int parentFolderID { get; set; }
     }
 }

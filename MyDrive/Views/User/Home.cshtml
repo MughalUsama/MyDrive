@@ -1,7 +1,7 @@
 ﻿@using System.Web.UI.WebControls
 
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Home - ";
 }
 
 @section styles{
@@ -34,7 +34,7 @@
 <div class="container-fluid">
 
     <div class="row folder-structure d-flex">
-        <span class="my-auto"> <a href="home.php">&rArr; Home</a> </span>
+        <span class="my-auto"> <a href="@Url.Content(@"~/User/Home")">&rArr; Home</a> </span>
     </div>
 
     <div class="row d-flex flex-sm-wrap mt-2">
@@ -65,7 +65,7 @@
                     <span class="d-inline pb-1" id="modalPfolder"> Home</span>
                     <br>
                     Folder Name:
-                    <input class="w-100" type="text" id="newfoldername" name="newFolderName">
+                    <input class="w-100" type="text" id="newfoldername" name="newFolderName" autofocus>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" id="createNewFolder" class="btn btn-success" data-dismiss="modal">Create</button>
@@ -78,5 +78,10 @@
 </div>
 
 @section scripts{
+    <script>
+        if ("@ViewBag.username.ToString()"=="") {
+            window.location = "@Url.Content("~/Home/Index")";
+        }
+    </script>
     <script type="text/javascript" src="~/Scripts/home.js"></script>
 }

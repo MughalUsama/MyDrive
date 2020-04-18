@@ -32,13 +32,7 @@
             <div class="card-body">
                 <h1 class="card-title p-2">Welcome To My Drive!</h1>
                 <h5 class="card-text p-2 pb-5">My Drive is a place to upload and save your files in an ordered way. You can create folders and subfolders and organize your files in your desired way.</h5>
-                @*<?php
-                    if ($signedup==true) {
-                    ?>
-                    <h4 id='signedupmsg' class="text-success text-center">You have successfully Signed Up! Let's Login!</h4>
-                    <?php
-                    }
-                    ?>*@
+                <h4 id='signedupmsg' class="text-success text-center"></h4>
             </div>
         </div>
     </div>
@@ -64,7 +58,7 @@
 
 
     <!-- Signup form-->
-    <form id="signupform" method="post" action="index.php" class="mr-5 myform px-3 pt-2 pb-2 col-md-4 ml-md-0">
+    <form id="signupform" method="post" class="mr-5 myform px-3 pt-2 pb-2 col-md-4 ml-md-0">
         <h1 class="text-center">Signup</h1>
         <div class="form-group px-2 pt-0">
             <label for="username">Your Name</label>
@@ -82,13 +76,8 @@
             <label for="confirmPassword">Confirm Password</label>
             <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm Your Password" minlength="8" maxlength="20" required>
         </div>
-        @*<?php
-            if ($emailExists==true){
-            ?>
-            <p id="email-error" class="text-center text-danger">Email Already in Use</p>
-            <?php
-            }
-            ?>*@
+       
+        <p id="email-error" class="text-center text-danger"></p>
         <p id="pass-error" class="text-center text-danger">Password does not match</p>
 
         <div class="text-center">

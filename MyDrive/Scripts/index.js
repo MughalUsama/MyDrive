@@ -24,7 +24,7 @@ $(document).ready(function() {
     );
 
 
-    if ($('#pass-error').css('display')!='none' || $('#email-error').length>0 )
+    if ($('#pass-error').css('display')!='none'  )
     {
         $('#nav-signup').hide();
         $('#nav-login').show();
@@ -37,12 +37,11 @@ $(document).ready(function() {
             var loginEmail = $("#loginEmail").val();
             var loginPassword = $("#loginPassword").val();
             var logindata = { login_Email: loginEmail, login_Password: loginPassword }
-            debugger 
             $.ajax(
                 {
                     url: '/User/ValidateUser',
                     type: 'Post',
-                    datatype: 'text',
+                    datatype: 'json',
                     data: logindata,
                     success: function (resp) {
                         console.log(resp.Error);
@@ -58,18 +57,40 @@ $(document).ready(function() {
 
     
 
-    $('#signupform').on('submit',function()
-    {
-      var spass=$('#signupPassword').val();
-      var sconpass=$('#confirmPassword').val();
-
-      if (spass==sconpass) {
-        return true;
-      }
-      else{
-        $('#pass-error').show();
-        return false;
-      }
+    $('#signupform').on('submit', function ()
+        {
+        var username = $('#username').val();
+        var signupEmail = $('#signupEmail').val()
+        var signupPassword = $('#signupPassword').val()
+        var confirmPassword = $('#confirmPassword').val()
+        if (signupPassword == confirmPassword) {
+            var signupdata = { signup_Email: signupEmail, user_Name: username, signup_Password: signupPassword };
+            $.ajax(
+                {
+                    url: '/User/SignUpUser',
+                    type: 'Post',
+                    datatype: 'json',
+                    data: signupdata,
+                    success: function (resp) {
+                        if (resp.Error == "Success") {
+                            $("#signedupmsg").text("You have successfully Signed Up! Let's Login!");
+                            $("#signedupmsg").show();
+                            $("#email-error").empty();
+                        } else {
+                            $("#email-error").text(resp.Error);
+                        }
+                    },
+                    error: function (resp) {
+                        $("#email-error").text("Sign Up Failed");
+                    }
+                }
+            );
+            return false;
+        }
+        else{
+            $('#pass-error').show();
+            return false;
+        }
     }
 
     );

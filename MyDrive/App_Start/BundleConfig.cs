@@ -23,8 +23,7 @@ namespace MyDrive
                       "~/Scripts/bootstrap.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.min.css",
-                      "~/Content/index.css"));
+                      "~/Content/bootstrap.min.css"));
         }
     }
 }

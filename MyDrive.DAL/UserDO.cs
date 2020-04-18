@@ -16,8 +16,8 @@ namespace MyDrive_DAL
             var userDetails = dbConnection.ExecuteReader(query);
             if (userDetails.Read())
             {
-                user.Email = userDetails.GetString("Email");
-                user.Username = userDetails.GetString("Username");
+                user.Email = userDetails.GetString(userDetails.GetOrdinal("Email"));
+                user.Username = userDetails.GetString(userDetails.GetOrdinal("Username"));
                 return true;
             }
             else
@@ -92,10 +92,10 @@ namespace MyDrive_DAL
                 {
                     FolderDTO folder = new FolderDTO();
 
-                    folder.folderName = foldersData.GetString("FolderName");
+                    folder.folderName = foldersData.GetString(foldersData.GetOrdinal("FolderName"));
                     if (!foldersData.IsDBNull(foldersData.GetOrdinal("FolderId")))
                     {
-                        folder.folderID = foldersData.GetInt32("FolderId");
+                        folder.folderID = foldersData.GetInt32(foldersData.GetOrdinal("FolderId"));
                     }
                     else
                     {
@@ -103,7 +103,7 @@ namespace MyDrive_DAL
                     }
                     if (!foldersData.IsDBNull(foldersData.GetOrdinal("ParentFolderId")))
                     {
-                        folder.parentFolderID = foldersData.GetInt32("ParentFolderId");
+                        folder.parentFolderID = foldersData.GetInt32(foldersData.GetOrdinal("ParentFolderId"));
                     }
                     else
                     {

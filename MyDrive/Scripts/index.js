@@ -16,7 +16,8 @@ $(document).ready(function() {
         });
         $('#signupform').fadeOut('fast',function () {
                 $('#loginform').fadeIn();
-            });
+        });
+        $('#signupform').trigger('reset');
         $('#pass-error').hide();
         $('#email-error').hide();
 
@@ -63,6 +64,7 @@ $(document).ready(function() {
         var signupEmail = $('#signupEmail').val()
         var signupPassword = $('#signupPassword').val()
         var confirmPassword = $('#confirmPassword').val()
+        debugger;
         if (signupPassword == confirmPassword) {
             var signupdata = { signup_Email: signupEmail, user_Name: username, signup_Password: signupPassword };
             $.ajax(
@@ -72,13 +74,26 @@ $(document).ready(function() {
                     datatype: 'json',
                     data: signupdata,
                     success: function (resp) {
+                        debugger;
                         if (resp.Error == "Success") {
                             $("#signedupmsg").text("You have successfully Signed Up! Let's Login!");
                             $("#signedupmsg").show();
                             $("#email-error").empty();
+                            $('#signupform').trigger('reset');
+                            $('#nav-login').fadeOut('fast', function () {
+                                $('#nav-signup').fadeIn();
+                            });
+                            $('#signupform').fadeOut('fast', function () {
+                                $('#loginform').fadeIn();
+                            });
+                            $('#pass-error').hide();
+                            $('#email-error').hide();
+
                         } else {
                             $("#email-error").text(resp.Error);
                         }
+
+
                     },
                     error: function (resp) {
                         $("#email-error").text("Sign Up Failed");

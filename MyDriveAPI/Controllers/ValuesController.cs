@@ -14,7 +14,7 @@ using MyDrive_Entities;
 namespace MyDriveAPI.Controllers
 {
 
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:57404", headers: "*", methods: "*")]
     public class ValuesController : ApiController
     {
         [HttpGet]
@@ -69,5 +69,4 @@ namespace MyDriveAPI.Controllers
             return GetFolders(pf_id);
         }
     }
-
 }

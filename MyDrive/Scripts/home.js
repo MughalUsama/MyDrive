@@ -1,22 +1,25 @@
 $(document).ready(function(){
     var pageLoad = function (folderid) {
-		$.ajax(
-				{
-					url: '/User/GetFolders',
-					type: 'Post',
-					dataType: 'json',
-					data: {pf_id:folderid},
-					success: displayFolders
-				}
-			);
+        console.log(localStorage.getItem("token"));
+
+        $.ajax(
+            {
+                headers: { "Authorization": "Bearer " + localStorage.getItem('token') },
+                crossDomain: true,
+                url: 'http://localhost:54332/api/Values/GetFolders',
+                type: 'Get',
+                dataType: 'json',
+                data: { pf_id: folderid },
+                success: displayFolders
+            }
+        );
 	};
 	var colorindex=	Math.floor(Math.random() * 4);     // returns a random integer from 0 to 3
 	var currentpfid = -1;
     pageLoad(-1);
 
 
-	function displayFolders(data)
-    {
+	function displayFolders(data) {
         $('#foldersCards').empty();
 		var colors=["bg-primary","bg-danger","bg-inverse","bg-success"]
 		for(var folders of data) {
@@ -40,8 +43,9 @@ $(document).ready(function(){
 		if (name!='') {
             $.ajax(
                 {
-                    url: '/User/AddFolder',
-					type: 'Post',
+                    headers: { "Authorization": "Bearer " + localStorage.getItem('token') },
+                    url: 'http://localhost:54332/api/Values/AddFolder',
+					type: 'Get',
 					dataType: 'json',
                     data: { folder_name: name, pf_id: currentpfid},
                     success: displayFolders,

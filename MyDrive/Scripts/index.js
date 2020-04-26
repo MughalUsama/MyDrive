@@ -45,8 +45,13 @@ $(document).ready(function() {
                     datatype: 'json',
                     data: logindata,
                     success: function (resp) {
-                        console.log(resp.Error);
-                        $("#loginError").text(resp.Error);
+                        if (resp.Error == "") {
+                            localStorage.setItem("token", resp.data);
+                            window.location.replace("http://localhost:57404/User/Home");
+                        } else {
+                            $("#loginError").text(resp.Error);
+                        }
+
                     },
                     error: function(resp) {
                         $("#loginError").text(resp.text);
@@ -64,17 +69,15 @@ $(document).ready(function() {
         var signupEmail = $('#signupEmail').val()
         var signupPassword = $('#signupPassword').val()
         var confirmPassword = $('#confirmPassword').val()
-        debugger;
         if (signupPassword == confirmPassword) {
             var signupdata = { signup_Email: signupEmail, user_Name: username, signup_Password: signupPassword };
             $.ajax(
                 {
-                    url: '/User/SignUpUser',
+                    url: 'http://localhost:54332/api/Values/SignUpUser',
                     type: 'Post',
                     datatype: 'json',
                     data: signupdata,
                     success: function (resp) {
-                        debugger;
                         if (resp.Error == "Success") {
                             $("#signedupmsg").text("You have successfully Signed Up! Let's Login!");
                             $("#signedupmsg").show();

@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Web;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using MyDrive.Security;
 using MyDrive_BAL;
 using MyDrive_Entities;
@@ -24,12 +28,14 @@ namespace MyDrive.Controllers
             ViewBag.username = SessionManager.User.Username;
             return View();
         }
-
+        [HttpGet]
         public ActionResult Logout()
         {
             SessionManager.ClearSession();
             return Redirect("~/Home/Index");
         }
+
+
 
         [HttpPost]
         public ActionResult ValidateUser(String login_Email, String login_Password)
@@ -42,7 +48,24 @@ namespace MyDrive.Controllers
             else if (MyDrive_BAL.UserBO.ValidateUser(login_Email, login_Password, user))
             {
                 SessionManager.User = user;
-                return JavaScript("window.location = '/User/Home'");
+                string key = "my_drive_key_123";
+                var issuer = "http://mydrive.com";
+                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+                var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+                var permClaims = new List<Claim>();
+                permClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+                permClaims.Add(new Claim("Email", user.Email));
+                permClaims.Add(new Claim("Username", user.Username));
+                permClaims.Add(new Claim("Password", login_Password));
+
+                var token = new JwtSecurityToken(issuer,
+                    issuer,
+                    permClaims,
+                    expires: DateTime.Now.AddDays(1),
+                    signingCredentials: credentials);
+                var jwt_token = new JwtSecurityTokenHandler().WriteToken(token);
+                return Json(new { Error = "" , data = jwt_token});
             }
             else
             {
@@ -50,40 +73,6 @@ namespace MyDrive.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult SignUpUser(String signup_Email, String user_Name, String signup_Password)
-        {
-            string pattern = "^([0-9a-zA-Z]([-\\.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$";
-            UserDTO user = new UserDTO();
-            if (signup_Email == "" || signup_Password == "")
-            {
-                return Json(new {Error = "Fill all Fields"});
-            }
-            else if (signup_Password.Length < 8 || !Regex.IsMatch(signup_Email, pattern))
-            {
-                return Json(new {Error = "Please enter valid password and email"});
-            }
-            else if (MyDrive_BAL.UserBO.SignUpUser(signup_Email, user_Name, signup_Password))
-            {
-                return Json(new { Error = "Success" });
-            }
-            else
-            {
-                return Json(new {Error = "Email Already Exists"});
-            }
-        }
-
-        [HttpPost]
-        public ActionResult GetFolders( int pf_id)
-        {
-            var folderList = MyDrive_BAL.UserBO.GetFolders(pf_id, SessionManager.User.Email);
-            return Json(folderList);
-        }
-        [HttpPost]
-        public ActionResult AddFolder(String folder_name, int pf_id)
-        {
-            MyDrive_BAL.UserBO.AddFolder(folder_name, pf_id,SessionManager.User.Email);
-            return GetFolders(pf_id);
-        }
+        
     }
 }

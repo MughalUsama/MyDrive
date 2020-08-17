@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using UMS.BAL;
 
 namespace UserManagementSystem
 {
@@ -22,7 +23,7 @@ namespace UserManagementSystem
                 MessageBox.Show("Profile image could not be found! \n Please Upload Another Image");
             }
         }
-
+        
         private void EditProfBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -36,6 +37,22 @@ namespace UserManagementSystem
             userDTO.clearDTO();
             this.Close();
             Application.OpenForms["MainScreen"].Show();
+        }
+
+        private void HomeForm_Activated(object sender, EventArgs e)
+        {
+            UserBO.validateUser(userDTO.Login,userDTO.Password,this.userDTO);
+            this.Refresh();
+            String imageFolderPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            imageFolderPath += @"\images\" + userDTO.Login + @"\" + userDTO.ImageName;
+            try
+            {
+                this.pictureBox1.Load(imageFolderPath);
+            }
+            catch
+            {
+                MessageBox.Show("Profile image could not be found! \n Please Upload Another Image");
+            }
         }
     }
 }

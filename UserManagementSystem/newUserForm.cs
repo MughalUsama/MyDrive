@@ -37,7 +37,14 @@ namespace UserManagementSystem
             this.emailTxtBox.Text = userDTO.Email;
             this.passwordTxtBox.Text = userDTO.Password;
             this.dobPicker.Value = userDTO.DOB;
-            this.genderBox.Text = userDTO.Gender + "";
+            if (userDTO.Gender == 'M')
+            {
+                this.genderBox.Text = "Male";
+            }
+            else
+            {
+                this.genderBox.Text = "Female";
+            }
             this.addressTxtBox.Text = userDTO.Address;
             this.ageBox.Value = userDTO.Age;
             this.nicTxtBox.Text = userDTO.NIC;
@@ -113,7 +120,6 @@ namespace UserManagementSystem
                 userdto.Address = addressTxtBox.Text;
                 userdto.DOB = dobPicker.Value;
                 userdto.Email = emailTxtBox.Text;
-                userdto.UserID = userDTO.UserID;
                 if(chessCheckBox.Checked)
                 {
                     userdto.Chess = 1 ;
@@ -156,7 +162,7 @@ namespace UserManagementSystem
                     if (UMS.BAL.UserBO.addUser(userdto))
                     {
                         this.Close();
-                        Application.OpenForms["homeForm"].Show();
+                        Application.OpenForms["MainScreen"].Show(); ;
                     }
                     else
                     {
@@ -165,7 +171,8 @@ namespace UserManagementSystem
                 }
                 else
                 {
-                    if(UMS.BAL.UserBO.updateUser(userdto, adminDTO,isAdmin))
+                    userdto.UserID = userDTO.UserID;
+                    if (UMS.BAL.UserBO.updateUser(userdto, adminDTO,isAdmin))
                     {
                         MessageBox.Show("Updated Successfully");
                     }
@@ -183,6 +190,7 @@ namespace UserManagementSystem
         {
             if (isLoggedIn)
             {
+                Application.OpenForms["homeForm"].Refresh();
                 Application.OpenForms["homeForm"].Show();
             }
             else if(isAdmin)
